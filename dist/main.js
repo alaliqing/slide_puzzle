@@ -83,7 +83,7 @@ function drawTiles() {
                 ctx.textBaseline = 'middle';
                 ctx.textAlign = 'center';
                 // Adjust font size based on tile size
-                ctx.font = `${tileSize / 3}px Arial`; // Example of dynamic font size
+                ctx.font = `${tileSize / 4}px serif`; // Example of dynamic font size
                 ctx.fillText(tiles[row][col].toString(), col * tileSize + tileSize / 2, row * tileSize + tileSize / 2);
             }
         }
