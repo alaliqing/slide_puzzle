@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Slide Puzzle Game</title>
     <style>
-        html,
-        body {
+        html, body {
             height: 100%;
             margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f7f7f7;
-            /* Optional: just to give a background color */
+            background-color: #f7f7f7; /* Optional: just to give a background color */
         }
 
         #gameCanvas {
-            border: 1px solid #000;
-            /* Optional: just to see the canvas boundaries */
+            /* Remove the explicit width and height here; it will be set by the JavaScript */
+            max-width: 90vw; /* Limit the canvas size to a percentage of the screen width */
+            max-height: 90vh; /* Limit the canvas size to a percentage of the screen height */
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Optional: adds a shadow for better visibility */
         }
+
+        /* The media queries can be removed if the resizing is fully handled by JavaScript */
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
 <body>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
-    <script src="./dist/main.js"></script>
+    <canvas id="gameCanvas"></canvas> <!-- The canvas element -->
+    <script src="./dist/main.js"></script> <!-- Reference to the compiled JS from your TypeScript -->
 </body>
-
 </html>

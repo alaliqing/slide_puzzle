@@ -9,10 +9,11 @@ if (!ctx) {
 
 // Game Variables
 const gridSize = 3; // For a 4x4 slide puzzle
-const tileSize = canvas.width / gridSize;
+let tileSize: number;
 let tiles: number[][] = [];
 let animationFrameId: number;
 
+// Utility functions
 function shuffleTiles() {
     // Perform a number of valid moves to shuffle the tiles
     let blankPos = { row: gridSize - 1, col: gridSize - 1 }; // Start with the blank at the last position
@@ -60,11 +61,30 @@ function initPuzzle() {
     shuffleTiles();
 }
 
+function resizeGame() {
+    // Define the maximum canvas size
+    const maxCanvasSize = Math.min(window.innerWidth, window.innerHeight, 500); // 500px or the viewport size, whichever is smaller
+
+    // Set the canvas size
+    canvas.width = maxCanvasSize;
+    canvas.height = maxCanvasSize;
+
+    // Update the tile size
+    tileSize = maxCanvasSize / gridSize;
+
+    // Redraw the game with new sizes
+    render();
+}
+
+// Listen for resize events
+window.addEventListener('resize', resizeGame);
+
 function update() {
     // Update game logic (e.g., check if a puzzle piece has moved)
 }
 
 function drawTiles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the entire canvas
     for (let row = 0; row < gridSize; row++) {
         for (let col = 0; col < gridSize; col++) {
             // Draw the tile
@@ -72,16 +92,19 @@ function drawTiles() {
             ctx.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
             ctx.strokeRect(col * tileSize, row * tileSize, tileSize, tileSize);
 
-            // Draw the number on the tile
-            ctx.fillStyle = 'black';
-            ctx.textBaseline = 'middle';
-            ctx.textAlign = 'center';
-            ctx.font = '20px Arial';
-            ctx.fillText(
-                tiles[row][col].toString(),
-                col * tileSize + tileSize / 2,
-                row * tileSize + tileSize / 2
-            );
+            // Draw the number on the tile if it is not the blank space
+            if (tiles[row][col] !== 0) {
+                ctx.fillStyle = 'black';
+                ctx.textBaseline = 'middle';
+                ctx.textAlign = 'center';
+                // Adjust font size based on tile size
+                ctx.font = `${tileSize / 3}px Arial`; // Example of dynamic font size
+                ctx.fillText(
+                    tiles[row][col].toString(),
+                    col * tileSize + tileSize / 2,
+                    row * tileSize + tileSize / 2
+                );
+            }
         }
     }
 }
@@ -94,12 +117,12 @@ function render() {
 function gameLoop() {
     update(); // Update game objects
     render(); // Render the game objects
-
-    animationFrameId = requestAnimationFrame(gameLoop); // Call the next frame
     // Check if the puzzle is solved
     if (checkIfSolved()) {
         console.log("Puzzle solved!");
         cancelAnimationFrame(animationFrameId); // Use the stored ID to cancel the animation frame
+    } else {
+        animationFrameId = requestAnimationFrame(gameLoop); // Call the next frame
     }
 }
 
@@ -139,11 +162,14 @@ function handleInput(event: MouseEvent | TouchEvent) {
     }
 }
 
-canvas.addEventListener('click', handleInput);
-canvas.addEventListener('touchstart', handleInput);
+document.addEventListener('DOMContentLoaded', function () {
+    canvas.addEventListener('click', handleInput);
+    canvas.addEventListener('touchstart', handleInput);
 
-initPuzzle(); // Initialize the puzzle
-requestAnimationFrame(gameLoop); // Start the game loop
+    initPuzzle(); // Initialize the puzzle
+    resizeGame(); // Resize the game initially
+    gameLoop(); // Start the game loop
+});
 
 
 
