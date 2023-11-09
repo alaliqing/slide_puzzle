@@ -8,7 +8,7 @@ if (!ctx) {
 }
 
 // Game Variables
-const gridSize = 3; // For a 4x4 slide puzzle
+let gridSize = 3; // For a 4x4 slide puzzle
 let tileSize: number;
 let tiles: number[][] = [];
 let animationFrameId: number;
@@ -163,13 +163,34 @@ function handleInput(event: MouseEvent | TouchEvent) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    const startScreen = document.getElementById('startScreen');
+    const gridSizeButtons = document.querySelectorAll('.grid-size-btn');
+
+    gridSizeButtons.forEach(button => {
+        button.addEventListener('click', function(this: HTMLElement) {
+            gridSize = parseInt(this.getAttribute('data-size') || '3'); // Add null check and default value
+            tileSize = canvas.width / gridSize; // Update tile size based on selected grid size
+
+            // Hide the start screen and show the canvas
+            if (startScreen) {
+                startScreen.style.display = 'none'; // Hide the start screen
+            }
+            canvas.style.display = 'block'; // Show the canvas
+
+            initPuzzle(); // Initialize the puzzle with the new grid size
+            resizeGame(); // Resize the game to fit the new grid size
+            gameLoop(); // Start the game loop
+        });
+    });
+
+    // Add event listeners for handling inputs
     canvas.addEventListener('click', handleInput);
     canvas.addEventListener('touchstart', handleInput);
 
-    initPuzzle(); // Initialize the puzzle
-    resizeGame(); // Resize the game initially
-    gameLoop(); // Start the game loop
+    // Initial resize of the game
+    resizeGame();
 });
+
 
 
 
