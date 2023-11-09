@@ -120,6 +120,10 @@ function gameLoop() {
     // Check if the puzzle is solved
     if (checkIfSolved()) {
         console.log("Puzzle solved!");
+        const winningMessage = document.getElementById('winningMessage');
+        if (winningMessage) {
+            winningMessage.style.display = 'flex';
+        } // Show the winning message
         cancelAnimationFrame(animationFrameId); // Use the stored ID to cancel the animation frame
     } else {
         animationFrameId = requestAnimationFrame(gameLoop); // Call the next frame
@@ -167,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const gridSizeButtons = document.querySelectorAll('.grid-size-btn');
 
     gridSizeButtons.forEach(button => {
-        button.addEventListener('click', function(this: HTMLElement) {
+        button.addEventListener('click', function (this: HTMLElement) {
             gridSize = parseInt(this.getAttribute('data-size') || '3'); // Add null check and default value
             tileSize = canvas.width / gridSize; // Update tile size based on selected grid size
 

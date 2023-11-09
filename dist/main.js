@@ -99,6 +99,10 @@ function gameLoop() {
     // Check if the puzzle is solved
     if (checkIfSolved()) {
         console.log("Puzzle solved!");
+        const winningMessage = document.getElementById('winningMessage');
+        if (winningMessage) {
+            winningMessage.style.display = 'flex';
+        } // Show the winning message
         cancelAnimationFrame(animationFrameId); // Use the stored ID to cancel the animation frame
     }
     else {
