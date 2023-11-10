@@ -114,6 +114,10 @@ function drawTiles() {
             ctx.arcTo(x, y, x + width, y, cornerRadius);
             ctx.closePath();
 
+            // Fill the tile
+            ctx.fillStyle = 'antiquewhite';
+            ctx.fill();
+
             if (tileValue !== 0) {
                 const sourceX = ((tileValue - 1) % gridSize) * (image.width / gridSize);
                 const sourceY = Math.floor((tileValue - 1) / gridSize) * (image.height / gridSize);
@@ -124,10 +128,6 @@ function drawTiles() {
                     col * tileSize, row * tileSize, tileSize, tileSize
                 );
             }
-
-            // Fill the tile
-            ctx.fillStyle = 'antiquewhite';
-            ctx.fill();
 
             // Stroke the tile border
             ctx.strokeStyle = 'white';
