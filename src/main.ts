@@ -7,13 +7,14 @@ if (!ctx) {
     throw new Error('Unable to get canvas context');
 }
 
-// Game Variables
+// 1. Game Variables
 let gridSize = 3; // For a 4x4 slide puzzle
 let tileSize: number;
 let tiles: number[][] = [];
 let animationFrameId: number;
+let gameStarted = false;
 
-// Utility functions
+// 2. Utility functions
 function shuffleTiles() {
     // Perform a number of valid moves to shuffle the tiles
     let blankPos = { row: gridSize - 1, col: gridSize - 1 }; // Start with the blank at the last position
@@ -54,9 +55,17 @@ function checkIfSolved() {
 
 // Initialize the puzzle
 function initPuzzle() {
-    tiles = [...Array(gridSize)].map((_, row) =>
-        [...Array(gridSize)].map((_, col) => row * gridSize + col)
-    );
+    tiles = [];
+    let num = 1;
+    for (let row = 0; row < gridSize; row++) {
+        let rowArray = [];
+        for (let col = 0; col < gridSize; col++) {
+            rowArray.push(num++);
+        }
+        tiles.push(rowArray);
+    }
+    // Set the last tile as the empty space
+    tiles[gridSize - 1][gridSize - 1] = 0;
     // Shuffle the tiles using your preferred method
     shuffleTiles();
 }
@@ -94,6 +103,7 @@ function drawTiles() {
             const y = row * tileSize;
             const width = tileSize;
             const height = tileSize;
+            const tileValue = tiles[row][col];
 
             // Draw the rounded rectangle
             ctx.beginPath();
@@ -103,6 +113,17 @@ function drawTiles() {
             ctx.arcTo(x, y + height, x, y, cornerRadius);
             ctx.arcTo(x, y, x + width, y, cornerRadius);
             ctx.closePath();
+
+            if (tileValue !== 0) {
+                const sourceX = ((tileValue - 1) % gridSize) * (image.width / gridSize);
+                const sourceY = Math.floor((tileValue - 1) / gridSize) * (image.height / gridSize);
+
+                ctx.drawImage(
+                    image,
+                    sourceX, sourceY, image.width / gridSize, image.height / gridSize,
+                    col * tileSize, row * tileSize, tileSize, tileSize
+                );
+            }
 
             // Fill the tile
             ctx.fillStyle = 'antiquewhite';
@@ -187,24 +208,36 @@ function handleInput(event: MouseEvent | TouchEvent) {
     }
 }
 
+// 3. Start game function
+function startGame() {
+    initPuzzle();
+    resizeGame();
+    gameLoop();
+}
+
+// 4. Image loading
+const image = new Image();
+image.src = 'assets/images/numg_1.png'; // Set the source to your image
+image.onload = startGame;
+
+// 5. Event listeners and game setup
 document.addEventListener('DOMContentLoaded', function () {
     const startScreen = document.getElementById('startScreen');
     const gridSizeButtons = document.querySelectorAll('.grid-size-btn');
 
     gridSizeButtons.forEach(button => {
         button.addEventListener('click', function (this: HTMLElement) {
-            gridSize = parseInt(this.getAttribute('data-size') || '3'); // Add null check and default value
-            tileSize = canvas.width / gridSize; // Update tile size based on selected grid size
-
-            // Hide the start screen and show the canvas
-            if (startScreen) {
-                startScreen.style.display = 'none'; // Hide the start screen
+            if (!gameStarted) {
+                gridSize = parseInt(this.getAttribute('data-size') || '3');
+                tileSize = canvas.width / gridSize;
+                gameStarted = true; // Prevents multiple initializations
+                // Hide the start screen and show the canvas
+                if (startScreen) {
+                    startScreen.style.display = 'none'; // Hide the start screen
+                }
+                canvas.style.display = 'block'; // Show the canvas
+                startGame();
             }
-            canvas.style.display = 'block'; // Show the canvas
-
-            initPuzzle(); // Initialize the puzzle with the new grid size
-            resizeGame(); // Resize the game to fit the new grid size
-            gameLoop(); // Start the game loop
         });
     });
 
