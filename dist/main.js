@@ -71,25 +71,36 @@ function update() {
 }
 function drawTiles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the entire canvas
+    const cornerRadius = 10; // Set the desired corner radius here
     for (let row = 0; row < gridSize; row++) {
         for (let col = 0; col < gridSize; col++) {
-            // Draw the tile
-            ctx.fillStyle = 'antiquewhite';
-            ctx.strokeStyle = 'white';
-            ctx.lineJoin = 'round'; // Set the corner type to round
-            ctx.lineWidth = 10; // Increase the line width to make the round corner more noticeable
+            // Define the position and size of the tile
+            const x = col * tileSize;
+            const y = row * tileSize;
+            const width = tileSize;
+            const height = tileSize;
+            // Draw the rounded rectangle
             ctx.beginPath();
-            ctx.rect(col * tileSize, row * tileSize, tileSize, tileSize);
+            ctx.moveTo(x + cornerRadius, y);
+            ctx.arcTo(x + width, y, x + width, y + height, cornerRadius);
+            ctx.arcTo(x + width, y + height, x, y + height, cornerRadius);
+            ctx.arcTo(x, y + height, x, y, cornerRadius);
+            ctx.arcTo(x, y, x + width, y, cornerRadius);
+            ctx.closePath();
+            // Fill the tile
+            ctx.fillStyle = 'antiquewhite';
             ctx.fill();
+            // Stroke the tile border
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 5; // Set the stroke width
             ctx.stroke();
             // Draw the number on the tile if it is not the blank space
             if (tiles[row][col] !== 0) {
                 ctx.fillStyle = 'burlywood';
                 ctx.textBaseline = 'middle';
                 ctx.textAlign = 'center';
-                // Adjust font size based on tile size
                 ctx.font = `${tileSize / 4}px serif`; // Example of dynamic font size
-                ctx.fillText(tiles[row][col].toString(), col * tileSize + tileSize / 2, row * tileSize + tileSize / 2);
+                ctx.fillText(tiles[row][col].toString(), x + tileSize / 2, y + tileSize / 2);
             }
         }
     }
