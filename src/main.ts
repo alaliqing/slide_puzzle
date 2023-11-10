@@ -131,7 +131,7 @@ function drawTiles() {
 
             // Stroke the tile border
             ctx.strokeStyle = 'white';
-            ctx.lineWidth = 5; // Set the stroke width
+            ctx.lineWidth = 10; // Set the stroke width
             ctx.stroke();
 
             // Draw the number on the tile if it is not the blank space
