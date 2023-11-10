@@ -88,13 +88,19 @@ function drawTiles() {
     for (let row = 0; row < gridSize; row++) {
         for (let col = 0; col < gridSize; col++) {
             // Draw the tile
-            ctx.fillStyle = 'white';
-            ctx.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
-            ctx.strokeRect(col * tileSize, row * tileSize, tileSize, tileSize);
+            ctx.fillStyle = 'antiquewhite';
+            ctx.strokeStyle = 'white';
+            ctx.lineJoin = 'round'; // Set the corner type to round
+            ctx.lineWidth = 10; // Increase the line width to make the round corner more noticeable
+
+            ctx.beginPath();
+            ctx.rect(col * tileSize, row * tileSize, tileSize, tileSize);
+            ctx.fill();
+            ctx.stroke();
 
             // Draw the number on the tile if it is not the blank space
             if (tiles[row][col] !== 0) {
-                ctx.fillStyle = 'black';
+                ctx.fillStyle = 'burlywood';
                 ctx.textBaseline = 'middle';
                 ctx.textAlign = 'center';
                 // Adjust font size based on tile size
