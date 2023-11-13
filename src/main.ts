@@ -130,16 +130,16 @@ function drawTiles() {
             }
 
             // Stroke the tile border
-            ctx.strokeStyle = 'white';
+            ctx.strokeStyle = 'antiquewhite';
             ctx.lineWidth = 10; // Set the stroke width
             ctx.stroke();
 
             // Draw the number on the tile if it is not the blank space
             if (tiles[row][col] !== 0) {
-                ctx.fillStyle = 'burlywood';
+                ctx.fillStyle = 'white';
                 ctx.textBaseline = 'middle';
                 ctx.textAlign = 'center';
-                ctx.font = `${tileSize / 4}px serif`; // Example of dynamic font size
+                ctx.font = `bold ${tileSize / 3}px serif`; // Example of dynamic font size
                 ctx.fillText(
                     tiles[row][col].toString(),
                     x + tileSize / 2,
