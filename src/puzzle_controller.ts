@@ -60,7 +60,7 @@ function resizeGame(gridSize: number, image: HTMLImageElement) {
 
 // Event listeners for the game
 const image = new Image();
-image.src = 'assets/images/numg_1.png'; // Set the source to your image
+image.src = 'assets/images/numg_3.png'; // Set the source to your image
 
 document.addEventListener('DOMContentLoaded', function () {
     const startScreen1 = document.getElementById('startScreen1');
@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     gameModeButtons.forEach(button => {
         button.addEventListener('click', function (this: HTMLElement) {
-            alert('game mode button clicked');
             const gameTypeCode = parseInt(this.getAttribute('game-mode') || '0'); // Add null check and default value
             currentGameType = gameTypeCode === 0 ? GameType.Number : GameType.Image;
             if (currentGameType === GameType.Image) {
@@ -81,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const startScreen2 = document.getElementById('startScreen2');
             const gridSizeButtons = document.querySelectorAll('.grid-size-btn');
             if (startScreen2) {
-                startScreen2.style.display = 'block'; // Show the start2 screen
+                startScreen2.style.display = 'flex'; // Show the start2 screen
             }
             gridSizeButtons.forEach(button => {
                 button.addEventListener('click', function (this: HTMLElement) {
