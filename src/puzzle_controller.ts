@@ -1,6 +1,6 @@
 // puzzle_controller.ts
-import { NumPuzzle } from './num_puzzle';
-import { ImagePuzzle } from './image_puzzle';
+import { NumPuzzle } from './num_puzzle.js';
+import { ImagePuzzle } from './image_puzzle.js';
 
 // Get the canvas element and its drawing context.
 const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
