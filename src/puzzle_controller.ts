@@ -35,6 +35,7 @@ function initGame(gridSize: number, image: HTMLImageElement) {
         numPuzzle.resizeGame(gridSize);
         numPuzzle.gameLoop(gridSize);
     } else if (currentGameType === GameType.Image) {
+        image.onload = () => imagePuzzle.initPuzzle(gridSize); 
         imagePuzzle.initPuzzle(gridSize);
         imagePuzzle.resizeGame(gridSize, image);
         imagePuzzle.gameLoop(gridSize, image);
@@ -70,9 +71,9 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function (this: HTMLElement) {
             const gameTypeCode = parseInt(this.getAttribute('game-mode') || '0'); // Add null check and default value
             currentGameType = gameTypeCode === 0 ? GameType.Number : GameType.Image;
-            if (currentGameType === GameType.Image) {
-                image.onload = () => initGame(gridSize, image); // Call initGame with gridSize and image
-            }
+            // if (currentGameType === GameType.Image) {
+            //     image.onload = () => initGame(gridSize, image); // Call initGame with gridSize and image
+            // }
             // Hide the start screen and show the canvas
             if (startScreen1) {
                 startScreen1.style.display = 'none'; // Hide the start1 screen
