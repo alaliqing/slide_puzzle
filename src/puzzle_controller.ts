@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const startScreen2 = document.getElementById('startScreen2');
             const gridSizeButtons = document.querySelectorAll('.grid-size-btn');
             if (startScreen2) {
-                startScreen2.style.display = 'flex'; // Show the start2 screen
+                startScreen2.style.display = 'block'; // Show the start2 screen
             }
             gridSizeButtons.forEach(button => {
                 button.addEventListener('click', function (this: HTMLElement) {
