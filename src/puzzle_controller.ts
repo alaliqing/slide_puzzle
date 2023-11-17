@@ -25,6 +25,7 @@ enum GameType {
 let gridSize = 3; // For a 4x4 slide puzzle
 let gameStarted = false;
 const image = new Image();
+image.src = 'assets/images/numg_3.png'; // Set the source to image
 
 // Current game type state
 let currentGameType: GameType = GameType.Number; // Default to number game
@@ -41,7 +42,6 @@ function initGame(gridSize: number) {
             imagePuzzle.resizeGame(gridSize, image);
             imagePuzzle.gameLoop(gridSize, image)
         };
-        image.src = 'assets/images/numg_3.png'; // Set the source to your image
     }
 }
 
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const startScreen2 = document.getElementById('startScreen2');
             const gridSizeButtons = document.querySelectorAll('.grid-size-btn');
             if (startScreen2) {
-                startScreen2.style.display = 'block'; // Show the start2 screen
+                startScreen2.style.display = 'flex'; // Show the start2 screen
             }
             gridSizeButtons.forEach(button => {
                 button.addEventListener('click', function (this: HTMLElement) {
