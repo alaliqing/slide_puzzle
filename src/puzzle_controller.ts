@@ -14,7 +14,7 @@ if (!ctx) {
 
 let numPuzzle = new NumPuzzle(canvas, ctx);
 let imagePuzzle = new ImagePuzzle(canvas, ctx);
-const touchDelay = 100; // 100 ms delay
+const touchDelay = 42; // 100 ms delay
 
 // Define an enumeration for game types
 enum GameType {
@@ -25,8 +25,6 @@ enum GameType {
 // 1. Game Variables
 let gridSize = 3; // For a 4x4 slide puzzle
 let gameStarted = false;
-const image = new Image();
-image.src = 'assets/images/20231117-154829.jpg'; // Set the source to image
 
 // Current game type state
 let currentGameType: GameType = GameType.Number; // Default to number game
@@ -38,11 +36,9 @@ function initGame(gridSize: number) {
         numPuzzle.resizeGame(gridSize);
         numPuzzle.gameLoop(gridSize);
     } else if (currentGameType === GameType.Image) {
-        image.onload = () => {
-            imagePuzzle.initPuzzle(gridSize);
-            imagePuzzle.resizeGame(gridSize, image);
-            imagePuzzle.gameLoop(gridSize, image)
-        };
+        imagePuzzle.initPuzzle(gridSize);
+        imagePuzzle.resizeGame(gridSize);
+        imagePuzzle.gameLoop(gridSize)
     }
 }
 
@@ -55,11 +51,11 @@ function handleInput(event: MouseEvent | TouchEvent) {
     }
 }
 
-function resizeGame(gridSize: number, image: HTMLImageElement) {
+function resizeGame(gridSize: number) {
     if (currentGameType === GameType.Number) {
         numPuzzle.resizeGame(gridSize);
     } else {
-        imagePuzzle.resizeGame(gridSize, image);
+        imagePuzzle.resizeGame(gridSize);
     }
 }
 
@@ -143,6 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
     canvas.addEventListener('touchstart', handleInput);
 
     // Initial resize of the game
-    window.addEventListener('resize', () => resizeGame(gridSize, image));
-    resizeGame(gridSize, image);
+    window.addEventListener('resize', () => resizeGame(gridSize));
+    resizeGame(gridSize);
 });

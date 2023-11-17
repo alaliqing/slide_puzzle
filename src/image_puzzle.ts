@@ -6,6 +6,7 @@ export class ImagePuzzle {
     private tileSize: number;
     private tiles: number[][];
     private animationFrameId: number;
+    private image: HTMLImageElement;
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         this.canvas = canvas;
@@ -13,12 +14,13 @@ export class ImagePuzzle {
         this.tileSize = 0;
         this.tiles = [];
         this.animationFrameId = 0;
-
+        this.image = new Image();
+        this.image.src = 'assets/images/20231117-154829.jpg'; // Set the source to image
         if (!this.ctx) {
             throw new Error('Unable to get thi.canvas context');
         }
     }
-
+    
     // 2. Utility functions
     private shuffleTiles(gridSize: number) {
         // Perform a number of valid moves to shuffle the this.tiles
@@ -75,7 +77,7 @@ export class ImagePuzzle {
         this.shuffleTiles(gridSize);
     }
 
-    public resizeGame(gridSize: number, image: HTMLImageElement) {
+    public resizeGame(gridSize: number) {
         // Define the maximum thi.canvas size
         const maxCanvasSize = Math.min(window.innerWidth, window.innerHeight, 500); // 500px or the viewport size, whichever is smaller
 
@@ -87,14 +89,14 @@ export class ImagePuzzle {
         this.tileSize = maxCanvasSize / gridSize;
 
         // Redraw the game with new sizes
-        this.render(gridSize, image);
+        this.render(gridSize);
     }
 
     private update() {
         // Update game logic (e.g., check if a puzzle piece has moved)
     }
 
-    private drawTiles(gridSize: number, image: HTMLImageElement) {
+    private drawTiles(gridSize: number) {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Clear the entire thi.canvas
         const cornerRadius = 10; // Set the desired corner radius here
 
@@ -121,12 +123,12 @@ export class ImagePuzzle {
                 this.ctx.fill();
 
                 if (tileValue !== 0) {
-                    const sourceX = ((tileValue - 1) % gridSize) * (image.width / gridSize);
-                    const sourceY = Math.floor((tileValue - 1) / gridSize) * (image.height / gridSize);
+                    const sourceX = ((tileValue - 1) % gridSize) * (this.image.width / gridSize);
+                    const sourceY = Math.floor((tileValue - 1) / gridSize) * (this.image.height / gridSize);
 
                     this.ctx.drawImage(
-                        image,
-                        sourceX, sourceY, image.width / gridSize, image.height / gridSize,
+                        this.image,
+                        sourceX, sourceY, this.image.width / gridSize, this.image.height / gridSize,
                         col * this.tileSize, row * this.tileSize, this.tileSize, this.tileSize
                     );
                 }
@@ -153,14 +155,14 @@ export class ImagePuzzle {
     }
 
 
-    private render(gridSize: number, image: HTMLImageElement) {
+    private render(gridSize: number) {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.drawTiles(gridSize, image);
+        this.drawTiles(gridSize);
     }
 
-    public gameLoop(gridSize: number, image: HTMLImageElement) {
+    public gameLoop(gridSize: number) {
         this.update(); // Update game objects
-        this.render(gridSize, image); // Render the game objects
+        this.render(gridSize); // Render the game objects
         // Check if the puzzle is solved
         if (this.checkIfSolved(gridSize)) {
             console.log("Puzzle solved!");
@@ -170,7 +172,7 @@ export class ImagePuzzle {
             } // Show the winning message
             cancelAnimationFrame(this.animationFrameId); // Use the stored ID to cancel the animation frame
         } else {
-            this.animationFrameId = requestAnimationFrame(this.gameLoop.bind(this, gridSize, image)); // Call the next frame
+            this.animationFrameId = requestAnimationFrame(() => this.gameLoop(gridSize)); // Call the next frame
         }
     }
 
