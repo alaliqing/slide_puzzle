@@ -22,6 +22,7 @@ var GameType;
 let gridSize = 3; // For a 4x4 slide puzzle
 let gameStarted = false;
 const image = new Image();
+image.src = 'assets/images/numg_3.png'; // Set the source to image
 // Current game type state
 let currentGameType = GameType.Number; // Default to number game
 // Initialize puzzle
@@ -37,7 +38,6 @@ function initGame(gridSize) {
             imagePuzzle.resizeGame(gridSize, image);
             imagePuzzle.gameLoop(gridSize, image);
         };
-        image.src = 'assets/images/numg_3.png'; // Set the source to your image
     }
 }
 // Unified input handler
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const startScreen2 = document.getElementById('startScreen2');
             const gridSizeButtons = document.querySelectorAll('.grid-size-btn');
             if (startScreen2) {
-                startScreen2.style.display = 'block'; // Show the start2 screen
+                startScreen2.style.display = 'flex'; // Show the start2 screen
             }
             gridSizeButtons.forEach(button => {
                 button.addEventListener('click', function () {
