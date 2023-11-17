@@ -111,11 +111,13 @@ export class ImagePuzzle {
                 this.ctx.stroke();
                 // Draw the number on the tile if it is not the blank space
                 if (this.tiles[row][col] !== 0) {
+                    this.ctx.globalAlpha = 0.5;
                     this.ctx.fillStyle = 'white';
                     this.ctx.textBaseline = 'middle';
                     this.ctx.textAlign = 'center';
                     this.ctx.font = `bold ${this.tileSize / 3}px serif`; // Example of dynamic font size
                     this.ctx.fillText(this.tiles[row][col].toString(), x + this.tileSize / 2, y + this.tileSize / 2);
+                    this.ctx.globalAlpha = 1.0;
                 }
             }
         }

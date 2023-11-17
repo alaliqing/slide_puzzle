@@ -20,7 +20,7 @@ export class ImagePuzzle {
             throw new Error('Unable to get thi.canvas context');
         }
     }
-    
+
     // 2. Utility functions
     private shuffleTiles(gridSize: number) {
         // Perform a number of valid moves to shuffle the this.tiles
@@ -140,6 +140,7 @@ export class ImagePuzzle {
 
                 // Draw the number on the tile if it is not the blank space
                 if (this.tiles[row][col] !== 0) {
+                    this.ctx.globalAlpha = 0.5;
                     this.ctx.fillStyle = 'white';
                     this.ctx.textBaseline = 'middle';
                     this.ctx.textAlign = 'center';
@@ -149,6 +150,7 @@ export class ImagePuzzle {
                         x + this.tileSize / 2,
                         y + this.tileSize / 2
                     );
+                    this.ctx.globalAlpha = 1.0;
                 }
             }
         }
