@@ -24,21 +24,24 @@ enum GameType {
 // 1. Game Variables
 let gridSize = 3; // For a 4x4 slide puzzle
 let gameStarted = false;
+const image = new Image();
 
 // Current game type state
 let currentGameType: GameType = GameType.Number; // Default to number game
 
 // Initialize puzzle
-function initGame(gridSize: number, image: HTMLImageElement) {
+function initGame(gridSize: number) {
     if (currentGameType === GameType.Number) {
         numPuzzle.initPuzzle(gridSize);
         numPuzzle.resizeGame(gridSize);
         numPuzzle.gameLoop(gridSize);
     } else if (currentGameType === GameType.Image) {
-        image.onload = () => imagePuzzle.initPuzzle(gridSize); 
-        imagePuzzle.initPuzzle(gridSize);
-        imagePuzzle.resizeGame(gridSize, image);
-        imagePuzzle.gameLoop(gridSize, image);
+        image.onload = () => {
+            imagePuzzle.initPuzzle(gridSize);
+            imagePuzzle.resizeGame(gridSize, image);
+            imagePuzzle.gameLoop(gridSize, image)
+        };
+        image.src = 'assets/images/numg_3.png'; // Set the source to your image
     }
 }
 
@@ -60,9 +63,6 @@ function resizeGame(gridSize: number, image: HTMLImageElement) {
 }
 
 // Event listeners for the game
-const image = new Image();
-image.src = 'assets/images/numg_3.png'; // Set the source to your image
-
 document.addEventListener('DOMContentLoaded', function () {
     const startScreen1 = document.getElementById('startScreen1');
     const gameModeButtons = document.querySelectorAll('.game-mode-btn');
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             startScreen2.style.display = 'none'; // Hide the start screen
                         }
                         canvas.style.display = 'block'; // Show the canvas
-                        initGame(gridSize, image); // Initialize the puzzle with the new grid size
+                        initGame(gridSize); // Initialize the puzzle with the new grid size
                     }
                 });
             });
