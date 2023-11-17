@@ -65,41 +65,74 @@ function resizeGame(gridSize: number, image: HTMLImageElement) {
 // Event listeners for the game
 document.addEventListener('DOMContentLoaded', function () {
     const startScreen1 = document.getElementById('startScreen1');
+    const startScreen2 = document.getElementById('startScreen2');
     const gameModeButtons = document.querySelectorAll('.game-mode-btn');
+    const gridSizeButtons = document.querySelectorAll('.grid-size-btn');
 
+    // Setup gameModeButtons event listeners
     gameModeButtons.forEach(button => {
-        button.addEventListener('click', function (this: HTMLElement) {
-            const gameTypeCode = parseInt(this.getAttribute('game-mode') || '0'); // Add null check and default value
-            currentGameType = gameTypeCode === 0 ? GameType.Number : GameType.Image;
-            // if (currentGameType === GameType.Image) {
-            //     image.onload = () => initGame(gridSize, image); // Call initGame with gridSize and image
-            // }
-            // Hide the start screen and show the canvas
-            if (startScreen1) {
-                startScreen1.style.display = 'none'; // Hide the start1 screen
-            }
-            const startScreen2 = document.getElementById('startScreen2');
-            const gridSizeButtons = document.querySelectorAll('.grid-size-btn');
-            if (startScreen2) {
-                startScreen2.style.display = 'flex'; // Show the start2 screen
-            }
-            gridSizeButtons.forEach(button => {
-                button.addEventListener('click', function (this: HTMLElement) {
-                    if (!gameStarted) {
-                        gridSize = parseInt(this.getAttribute('data-size') || '3'); // Add null check and default value
-                        // tileSize = canvas.width / gridSize; // Update tile size based on selected grid size
-
-                        // Hide the start screen and show the canvas
-                        if (startScreen2) {
-                            startScreen2.style.display = 'none'; // Hide the start screen
-                        }
-                        canvas.style.display = 'block'; // Show the canvas
-                        initGame(gridSize); // Initialize the puzzle with the new grid size
-                    }
-                });
-            });
-        });
+        button.addEventListener('click', gameModeButtonClick);
+        button.addEventListener('touchstart', gameModeButtonTouchStart);
     });
+
+    // Handle click on gameModeButton
+    function gameModeButtonClick(this: HTMLElement) {
+        handleGameModeSelection(this);
+    }
+
+    // Handle touchstart on gameModeButton
+    function gameModeButtonTouchStart(this: HTMLElement, event: Event) {
+        event.preventDefault();
+        handleGameModeSelection(this);
+    }
+
+    // Handle game mode selection
+    function handleGameModeSelection(buttonElement: HTMLElement) {
+        const gameTypeCode = parseInt(buttonElement.getAttribute('game-mode') || '0');
+        currentGameType = gameTypeCode === 0 ? GameType.Number : GameType.Image;
+
+        if (startScreen1) {
+            startScreen1.style.display = 'none'; // Hide the start1 screen
+        }
+        if (startScreen2) {
+            startScreen2.style.display = 'flex'; // Show the start2 screen
+        }
+    }
+
+    // Setup gridSizeButtons event listeners
+    gridSizeButtons.forEach(button => {
+        button.addEventListener('click', gridSizeButtonClick);
+        button.addEventListener('touchstart', gridSizeButtonTouchStart);
+    });
+
+    // Handle click on gridSizeButton
+    function gridSizeButtonClick(this: HTMLElement, event: Event) {
+        handleGridSizeSelection(this, event);
+    }
+
+    // Handle touchstart on gridSizeButton
+    function gridSizeButtonTouchStart(this: HTMLElement, event: Event) {
+        event.preventDefault();
+        handleGridSizeSelection(this, event);
+    }
+
+    // Handle grid size selection
+    function handleGridSizeSelection(buttonElement: HTMLElement, event: Event) {
+        if (!gameStarted) {
+            gridSize = parseInt(buttonElement.getAttribute('data-size') || '3');
+            // tileSize = canvas.width / gridSize; // Uncomment if needed
+
+            const canvas = document.getElementById('gameCanvas');
+            if (canvas) {
+                if (startScreen2) {
+                    startScreen2.style.display = 'none'; // Hide the start screen
+                }
+                canvas.style.display = 'block'; // Show the canvas
+                initGame(gridSize);
+            }
+        }
+    }
+
     // Add event listeners for handling inputs
     canvas.addEventListener('click', handleInput);
     canvas.addEventListener('touchstart', handleInput);
