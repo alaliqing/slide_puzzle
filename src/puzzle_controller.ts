@@ -14,6 +14,7 @@ if (!ctx) {
 
 let numPuzzle = new NumPuzzle(canvas, ctx);
 let imagePuzzle = new ImagePuzzle(canvas, ctx);
+const touchDelay = 100; // 100 ms delay
 
 // Define an enumeration for game types
 enum GameType {
@@ -25,7 +26,7 @@ enum GameType {
 let gridSize = 3; // For a 4x4 slide puzzle
 let gameStarted = false;
 const image = new Image();
-image.src = 'assets/images/numg_3.png'; // Set the source to image
+image.src = 'assets/images/20231117-154829.jpg'; // Set the source to image
 
 // Current game type state
 let currentGameType: GameType = GameType.Number; // Default to number game
@@ -83,7 +84,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Handle touchstart on gameModeButton
     function gameModeButtonTouchStart(this: HTMLElement, event: Event) {
         event.preventDefault();
-        handleGameModeSelection(this);
+        setTimeout(() => {
+            handleGameModeSelection(this);
+        }, touchDelay);
     }
 
     // Handle game mode selection
@@ -113,7 +116,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Handle touchstart on gridSizeButton
     function gridSizeButtonTouchStart(this: HTMLElement, event: Event) {
         event.preventDefault();
-        handleGridSizeSelection(this, event);
+        setTimeout(() => {
+            handleGridSizeSelection(this, event);
+        }, touchDelay);
     }
 
     // Handle grid size selection
