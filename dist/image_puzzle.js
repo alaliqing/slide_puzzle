@@ -107,7 +107,7 @@ export class ImagePuzzle {
                 }
                 // Stroke the tile border
                 this.ctx.strokeStyle = 'antiquewhite';
-                this.ctx.lineWidth = 10; // Set the stroke width
+                this.ctx.lineWidth = 24 / gridSize; // Set the stroke width
                 this.ctx.stroke();
                 // Draw the number on the tile if it is not the blank space
                 if (this.tiles[row][col] !== 0) {
