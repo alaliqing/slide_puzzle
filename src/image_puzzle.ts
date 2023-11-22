@@ -98,7 +98,7 @@ export class ImagePuzzle {
 
     private drawTiles(gridSize: number) {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Clear the entire thi.canvas
-        const cornerRadius = 10; // Set the desired corner radius here
+        const cornerRadius = 3; // Set the desired corner radius here
 
         for (let row = 0; row < gridSize; row++) {
             for (let col = 0; col < gridSize; col++) {
@@ -135,12 +135,12 @@ export class ImagePuzzle {
 
                 // Stroke the tile border
                 this.ctx.strokeStyle = 'antiquewhite';
-                this.ctx.lineWidth = 24 / gridSize; // Set the stroke width
+                this.ctx.lineWidth = 18 / gridSize; // Set the stroke width
                 this.ctx.stroke();
 
                 // Draw the number on the tile if it is not the blank space
                 if (this.tiles[row][col] !== 0) {
-                    this.ctx.globalAlpha = 0.5;
+                    this.ctx.globalAlpha = 0.25;
                     this.ctx.fillStyle = 'white';
                     this.ctx.textBaseline = 'middle';
                     this.ctx.textAlign = 'center';
