@@ -7,6 +7,7 @@ export class ImagePuzzle {
     private tiles: number[][];
     private animationFrameId: number;
     private image: HTMLImageElement;
+    private numVector = [1, 1, 1, 1, 1, 1, 1, 1];
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         this.canvas = canvas;
@@ -99,7 +100,6 @@ export class ImagePuzzle {
     private drawTiles(gridSize: number) {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Clear the entire thi.canvas
         const cornerRadius = 3; // Set the desired corner radius here
-        const numVector = [5, 2, 8, 1, 4, 6, 3, 7];
         for (let row = 0; row < gridSize; row++) {
             for (let col = 0; col < gridSize; col++) {
                 // Define the position and size of the tile
@@ -146,7 +146,7 @@ export class ImagePuzzle {
                     this.ctx.textAlign = 'center';
                     this.ctx.font = `bold ${this.tileSize / 3}px serif`; // Example of dynamic font size
                     this.ctx.fillText(
-                        numVector[this.tiles[row][col]].toString(),
+                        this.numVector[this.tiles[row][col]].toString(),
                         x + this.tileSize / 2,
                         y + this.tileSize / 2
                     );
