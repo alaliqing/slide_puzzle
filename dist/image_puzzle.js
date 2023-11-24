@@ -8,7 +8,7 @@ export class ImagePuzzle {
         this.tiles = [];
         this.animationFrameId = 0;
         this.image = new Image();
-        this.image.src = 'assets/images/20231125-051444.jpg'; // Set the source to image
+        this.image.src = 'assets/images/20231125-055646.jpg'; // Set the source to image
         if (!this.ctx) {
             throw new Error('Unable to get thi.canvas context');
         }
@@ -51,6 +51,15 @@ export class ImagePuzzle {
     }
     // Initialize the puzzle
     initPuzzle(gridSize) {
+        if (gridSize === 3) {
+            this.image.src = 'assets/images/20231125-055646.png';
+        }
+        else if (gridSize === 4) {
+            this.image.src = 'assets/images/20231125-055634.jpg';
+        }
+        else if (gridSize === 5) {
+            this.image.src = 'assets/images/20231125-055640.jpg';
+        }
         this.tiles = [];
         let num = 1;
         for (let row = 0; row < gridSize; row++) {
