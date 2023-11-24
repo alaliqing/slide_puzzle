@@ -117,7 +117,8 @@ export class ImagePuzzle {
                     this.ctx.textBaseline = 'middle';
                     this.ctx.textAlign = 'center';
                     this.ctx.font = `bold ${this.tileSize / 3}px serif`; // Example of dynamic font size
-                    this.ctx.fillText(this.numVector[this.tiles[row][col]].toString(), x + this.tileSize / 2, y + this.tileSize / 2);
+                    const num = this.numVector[this.tiles[row][col]];
+                    this.ctx.fillText(num.toString(), x + this.tileSize / 2, y + this.tileSize / 2);
                     this.ctx.globalAlpha = 1.0;
                 }
             }
