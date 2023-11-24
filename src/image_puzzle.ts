@@ -159,11 +159,6 @@ export class ImagePuzzle {
                             y + this.tileSize / 2
                         );
                     }
-                    this.ctx.fillText(
-                        num,
-                        x + this.tileSize / 2,
-                        y + this.tileSize / 2
-                    );
                     this.ctx.globalAlpha = 1.0;
                 }
             }

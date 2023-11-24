@@ -124,7 +124,6 @@ export class ImagePuzzle {
                     else {
                         this.ctx.fillText(this.tiles[row][col].toString(), x + this.tileSize / 2, y + this.tileSize / 2);
                     }
-                    this.ctx.fillText(num, x + this.tileSize / 2, y + this.tileSize / 2);
                     this.ctx.globalAlpha = 1.0;
                 }
             }
