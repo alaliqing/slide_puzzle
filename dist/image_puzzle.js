@@ -1,7 +1,7 @@
 // image_puzzle.ts
 export class ImagePuzzle {
     constructor(canvas, ctx) {
-        this.numVector = ['1', '1', '1', '1', '1', '1', '1', '1'];
+        this.numVector = ['1', '1', '1', '1', '1', '1', '1', '1', '1'];
         this.canvas = canvas;
         this.ctx = ctx;
         this.tileSize = 0;
@@ -23,7 +23,7 @@ export class ImagePuzzle {
                 [blankPos.row - 1, blankPos.col],
                 [blankPos.row + 1, blankPos.col],
                 [blankPos.row, blankPos.col - 1],
-                [blankPos.row, blankPos.col + 1], // Right
+                [blankPos.row, blankPos.col + 1],
             ].filter(([row, col]) => row >= 0 && row < gridSize && col >= 0 && col < gridSize);
             const [newRow, newCol] = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
             [this.tiles[blankPos.row][blankPos.col], this.tiles[newRow][newCol]] = [this.tiles[newRow][newCol], this.tiles[blankPos.row][blankPos.col]];

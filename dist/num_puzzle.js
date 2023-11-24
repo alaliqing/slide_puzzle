@@ -20,7 +20,7 @@ export class NumPuzzle {
                 [blankPos.row - 1, blankPos.col],
                 [blankPos.row + 1, blankPos.col],
                 [blankPos.row, blankPos.col - 1],
-                [blankPos.row, blankPos.col + 1], // Right
+                [blankPos.row, blankPos.col + 1],
             ].filter(([row, col]) => row >= 0 && row < gridSize && col >= 0 && col < gridSize);
             const [newRow, newCol] = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
             [this.tiles[blankPos.row][blankPos.col], this.tiles[newRow][newCol]] = [this.tiles[newRow][newCol], this.tiles[blankPos.row][blankPos.col]];

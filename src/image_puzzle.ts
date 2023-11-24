@@ -7,7 +7,7 @@ export class ImagePuzzle {
     private tiles: number[][];
     private animationFrameId: number;
     private image: HTMLImageElement;
-    private numVector = ['1', '1', '1', '1', '1', '1', '1', '1'];
+    private numVector = ['1', '1', '1', '1', '1', '1', '1', '1', '1'];
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         this.canvas = canvas;
