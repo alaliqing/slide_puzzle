@@ -1,7 +1,7 @@
 // image_puzzle.ts
 export class ImagePuzzle {
     constructor(canvas, ctx) {
-        this.numVector = [1, 1, 1, 1, 1, 1, 1, 1];
+        this.numVector = ['1', '1', '1', '1', '1', '1', '1', '1'];
         this.canvas = canvas;
         this.ctx = ctx;
         this.tileSize = 0;
@@ -118,7 +118,7 @@ export class ImagePuzzle {
                     this.ctx.textAlign = 'center';
                     this.ctx.font = `bold ${this.tileSize / 3}px serif`; // Example of dynamic font size
                     const num = this.numVector[this.tiles[row][col]];
-                    this.ctx.fillText(num.toString(), x + this.tileSize / 2, y + this.tileSize / 2);
+                    this.ctx.fillText(num, x + this.tileSize / 2, y + this.tileSize / 2);
                     this.ctx.globalAlpha = 1.0;
                 }
             }

@@ -7,7 +7,7 @@ export class ImagePuzzle {
     private tiles: number[][];
     private animationFrameId: number;
     private image: HTMLImageElement;
-    private numVector = [1, 1, 1, 1, 1, 1, 1, 1];
+    private numVector = ['1', '1', '1', '1', '1', '1', '1', '1'];
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         this.canvas = canvas;
@@ -147,7 +147,7 @@ export class ImagePuzzle {
                     this.ctx.font = `bold ${this.tileSize / 3}px serif`; // Example of dynamic font size
                     const num = this.numVector[this.tiles[row][col]];
                     this.ctx.fillText(
-                        num.toString(),
+                        num,
                         x + this.tileSize / 2,
                         y + this.tileSize / 2
                     );
