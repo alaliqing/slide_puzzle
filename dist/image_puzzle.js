@@ -52,7 +52,7 @@ export class ImagePuzzle {
     // Initialize the puzzle
     initPuzzle(gridSize) {
         if (gridSize === 3) {
-            this.image.src = 'assets/images/20231125-055646.png';
+            this.image.src = 'assets/images/20231125-055646.jpg';
         }
         else if (gridSize === 4) {
             this.image.src = 'assets/images/20231125-055634.jpg';
