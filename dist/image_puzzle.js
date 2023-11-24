@@ -118,6 +118,12 @@ export class ImagePuzzle {
                     this.ctx.textAlign = 'center';
                     this.ctx.font = `bold ${this.tileSize / 3}px serif`; // Example of dynamic font size
                     const num = this.numVector[this.tiles[row][col]];
+                    if (gridSize === 3) {
+                        this.ctx.fillText(num, x + this.tileSize / 2, y + this.tileSize / 2);
+                    }
+                    else {
+                        this.ctx.fillText(this.tiles[row][col].toString(), x + this.tileSize / 2, y + this.tileSize / 2);
+                    }
                     this.ctx.fillText(num, x + this.tileSize / 2, y + this.tileSize / 2);
                     this.ctx.globalAlpha = 1.0;
                 }
