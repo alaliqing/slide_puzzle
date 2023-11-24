@@ -8,7 +8,7 @@ export class ImagePuzzle {
         this.tiles = [];
         this.animationFrameId = 0;
         this.image = new Image();
-        this.image.src = 'assets/images/20231117-154829.jpg'; // Set the source to image
+        this.image.src = 'assets/images/20231125-051444.jpg'; // Set the source to image
         if (!this.ctx) {
             throw new Error('Unable to get thi.canvas context');
         }
