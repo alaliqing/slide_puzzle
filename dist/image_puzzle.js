@@ -1,7 +1,7 @@
 // image_puzzle.ts
 export class ImagePuzzle {
     constructor(canvas, ctx) {
-        this.numVector = ['1', '1', '1', '1', '1', '1', '1', '1', '1'];
+        this.numVector = ['1', '5', '7', '7', '4', '4', '5', '2', '9'];
         this.canvas = canvas;
         this.ctx = ctx;
         this.tileSize = 0;
@@ -52,7 +52,7 @@ export class ImagePuzzle {
     // Initialize the puzzle
     initPuzzle(gridSize) {
         if (gridSize === 3) {
-            this.image.src = 'assets/images/20231125-055646.jpg';
+            this.image.src = 'assets/images/20231125-x`.jpg';
         }
         else if (gridSize === 4) {
             this.image.src = 'assets/images/20231125-055634.jpg';

@@ -7,7 +7,7 @@ export class ImagePuzzle {
     private tiles: number[][];
     private animationFrameId: number;
     private image: HTMLImageElement;
-    private numVector = ['1', '1', '1', '1', '1', '1', '1', '1', '1'];
+    private numVector = ['1', '5', '7', '7', '4', '4', '5', '2', '9'];
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         this.canvas = canvas;
@@ -64,7 +64,7 @@ export class ImagePuzzle {
     // Initialize the puzzle
     public initPuzzle(gridSize: number) {
         if (gridSize === 3) {
-            this.image.src = 'assets/images/20231125-055646.jpg';
+            this.image.src = 'assets/images/20231125-x`.jpg';
         } else if (gridSize === 4) {
             this.image.src = 'assets/images/20231125-055634.jpg';
         } else if (gridSize === 5) {
